@@ -1,0 +1,18 @@
+Hello world:
+https://gobyexample.com/hello-world
+
+Good overview of language:
+
+https://tour.golang.org/
+
+Installing dependencies (Default path for GOPATH is /home/user/go but since I have 'go' installed here, need to do following)
+-----------------------------------------------------------------------------------------------------------------------------
+mkdir ~/.go
+#Add the following line to .bashrc
+export GOPATH=/home/rmc-dev/.go
+go get go.uber.org/dig
+
+Buliding
+--------
+go  build  - this produces an executable mailbrowser
+

@@ -1,0 +1,9 @@
+#Developed, and build on Centos 7 useg Visual Studio Code IDE
+1.) Install go language from : https://golang.org/dl/
+2.) Install visual studio code
+3.) Create a hello world source file and check it builds and runs
+4.) Open visual studio code: code ./
+5.) Visual studio will detect '.go' file extension and ask to install the 'Go' extension (https://code.visualstudio.com/docs/languages/go)
+6.) To debug , need to install 'delv':   go get -u github.com/derekparker/delve/cmd/dlv (https://github.com/derekparker/delve/blob/master/Documentation/installation/linux/install.md)
+7.) Add dlv executable to PATH variable
+8.) Open new terminal and start code . Should be able to debug!!
