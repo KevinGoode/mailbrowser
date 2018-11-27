@@ -17,10 +17,11 @@ import (
 // authenticatedGmailClient stores reference to oauth2 config
 // Code in this source file based on this code: https://developers.google.com/gmail/api/quickstart/go
 type authenticatedGmailClient struct {
-	config oauth2.Config
+	config    oauth2.Config
+	tokenPath string
 }
 
-func (client *authenticatedGmailClient) Init(credentialsFile string) {
+func (client *authenticatedGmailClient) Init(path string, credentialsFile string) {
 	b, err := ioutil.ReadFile(credentialsFile)
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
@@ -32,6 +33,7 @@ func (client *authenticatedGmailClient) Init(credentialsFile string) {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
 	}
 	client.config = *config
+	client.tokenPath = path
 }
 
 // Retrieve a token, saves the token, then returns the generated client.
@@ -39,22 +41,15 @@ func (client *authenticatedGmailClient) GetClient() *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
 	// created automatically when the authorization flow completes for the first
 	// time.
-	tokFile := "token.json"
+	tokFile := client.tokenPath + "token.json"
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
 		tok = client.getTokenFromWeb()
 		saveToken(tokFile, tok)
 	}
 	httpClient := client.config.Client(context.Background(), tok)
-	ok := client.testClient(httpClient)
-	if !ok {
-		tok = client.getTokenFromWeb()
-		saveToken(tokFile, tok)
-	}
+
 	return httpClient
-}
-func (client *authenticatedGmailClient) testClient(httpClient *http.Client) bool {
-	return true
 }
 
 // Request a token from the web, then returns the retrieved token.

@@ -9,6 +9,7 @@ import (
 
 func buildContainer() *dig.Container {
 	container := dig.New()
+	container.Provide(utils.NewArgs)
 	container.Provide(utils.NewArgumentReader)
 	container.Provide(utils.NewAuthenticatedGmailClient)
 	container.Provide(utils.NewMailboxRequestor)

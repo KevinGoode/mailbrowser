@@ -33,8 +33,8 @@ func (requestor *mailBoxRequestor) GetMessages(folderName string, max string) st
 	}
 	return ""
 }
-func (requestor *mailBoxRequestor) Init(credentialsFile string) {
-	requestor.client.Init(credentialsFile)
+func (requestor *mailBoxRequestor) Init(path string, credentialsFile string) {
+	requestor.client.Init(path, credentialsFile)
 }
 
 //NewMailboxRequestor is a public constructor for mailBoxRequestor

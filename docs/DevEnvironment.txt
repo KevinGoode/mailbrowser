@@ -7,3 +7,30 @@
 6.) To debug , need to install 'delv':   go get -u github.com/derekparker/delve/cmd/dlv (https://github.com/derekparker/delve/blob/master/Documentation/installation/linux/install.md)
 7.) Add dlv executable to PATH variable
 8.) Open new terminal and start code . Should be able to debug!!
+
+#Debug code
+In visual studio code
+select main.go and go to 'Sart Debugging'
+
+
+#Run code.
+In main dir:
+mailbrowser >go run main.go
+
+#Test code
+mailbrowser/utils> go test -v
+
+
+#Debug test
+In visual studio code
+select **_test.go file and above test method click on 'debug test'
+
+#Coverage
+First install this;
+go get golang.org/x/tools/cmd/cover
+Then:
+mailbrowser/utils> go test -coverprofile cover.out
+mailbrowser/utils> go tool cover -html=cover.out -o cover.html
+
+Inspect cover.html in browser
+

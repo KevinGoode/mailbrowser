@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"strconv"
@@ -21,12 +20,13 @@ type cliOptionValue struct {
 
 //argReader struct simply contains cliArgs as a string/string key value map of cli arguments
 type argReader struct {
-	options [3]cliOptionValue
+	argsAPI ArgsAPI
+	options []cliOptionValue
 }
 
 func (reader *argReader) GetArgs() cliArgs {
 	//1.) Check for unrecognised args
-	flag.Parse()
+	reader.argsAPI.Parse()
 	//2.) Got this far so must be no unrecognised args. Now validate
 	reader.validate()
 	//3.) Return map of parameters
@@ -65,15 +65,15 @@ func (reader *argReader) validate() {
 }
 
 //NewArgumentReader is the private constructor and initialiser for for struct argReader
-func NewArgumentReader() ArgumentReaderAPI {
+func NewArgumentReader(args ArgsAPI) ArgumentReaderAPI {
 	//This code uses package flags. See info link.
 	//https://gobyexample.com/command-line-flags
 	reader := argReader{}
+	reader.argsAPI = args
+	reader.options = make([]cliOptionValue, 3, 3)
 	reader.options[0].definition = cliOptionDefinition{"credentials", "credentials.json", "Must provide full path of credentials file by specifying -credentials option. See https://developers.google.com/gmail/api/quickstart/go for details", false, false}
 	reader.options[1].definition = cliOptionDefinition{"folder", "inbox", "", false, false}
 	reader.options[2].definition = cliOptionDefinition{"num", "10", "", false, true}
-	for i := 0; i < len(reader.options); i++ {
-		reader.options[i].value = flag.String(reader.options[i].definition.name, reader.options[i].definition.defaultValue, reader.options[i].definition.description)
-	}
+	reader.argsAPI.Init(reader.options)
 	return &reader
 }
