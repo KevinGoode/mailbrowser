@@ -1,3 +1,15 @@
+#NOTES ON APP:
+#Basic code is based on this:
+https://developers.google.com/gmail/api/quickstart/go
+Need to get credentials.json (Credentials.json is this application (mailbrowser) credentials)
+Need to give the application enough scope to delete emails
+Scopes are explained here: https://developers.google.com/gmail/api/auth/scopes
+I set mailbrowser scopes by going here:
+NOTE NEED to logon to this account as this user: normangoode409@gmail.com
+https://console.developers.google.com/apis/credentials/consent?project=mailbrowser-1542986963021&authuser=0
+To support delete need this scope https://www.googleapis.com/auth/gmail.modify
+
+
 #Developed, and build on Centos 7 useg Visual Studio Code IDE
 1.) Install go language from : https://golang.org/dl/
 2.) Install visual studio code

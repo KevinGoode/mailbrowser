@@ -1,8 +1,6 @@
 package utils
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type commandExecutor struct {
 	input     ArgumentReaderAPI
@@ -11,11 +9,20 @@ type commandExecutor struct {
 
 func (executor *commandExecutor) Run() {
 	args := executor.input.GetArgs()
-	//Ignore error when converting int because checked this already
-	fmt.Printf("Executing request. Getting last %s messages from folder %s\n", args["num"], args["folder"])
 	executor.requestor.Init("./", args["credentials"])
-	executor.requestor.GetMessages(args["folder"], args["num"])
-
+	switch args["cmd"] {
+	case "list":
+		executor.requestor.GetMessages(args["folder"], args["num"])
+	case "get":
+		executor.requestor.GetMessage(args["id"])
+	case "delete":
+		executor.requestor.DeleteMessage(args["id"])
+	case "help":
+		executor.requestor.GetHelp()
+		executor.input.GetHelp()
+	default:
+		fmt.Printf("Internal error. Unexpected command type")
+	}
 }
 
 //NewCommandExecutor is a public constructor for command executor

@@ -57,7 +57,9 @@ func (client *authenticatedGmailClient) getTokenFromWeb() *oauth2.Token {
 	authURL := client.config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
 	fmt.Printf("Go to the following link in your browser then type the "+
 		"authorization code: \n%v\n", authURL)
-
+	fmt.Println("")
+	fmt.Println("NOTE: THIS TOKEN WILL NOT PROVIDE WRITE ACCESS SO DELETE WILL NOT WORK.")
+	fmt.Println("NOTE: TO ALLOW DELETE SIMPLY CHANGE 'readonly' IN ABOVE URL TO 'modify'")
 	var authCode string
 	if _, err := fmt.Scan(&authCode); err != nil {
 		log.Fatalf("Unable to read authorization code: %v", err)

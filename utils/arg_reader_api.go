@@ -7,4 +7,5 @@ type cliArgs map[string]string
 //ArgumentReaderAPI is main api to read cli arguments
 type ArgumentReaderAPI interface {
 	GetArgs() cliArgs
+	GetHelp()
 }
